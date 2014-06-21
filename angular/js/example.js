@@ -17,25 +17,24 @@ myApp.controller('PlumbCtrl', function($scope) {
 	$scope.library = [];
 
 	// library_uuid is a unique identifier per module type in the library
-	$scope.library_uuid = 0; 
+	$scope.library_uuid = 0;
 
 	// state is [identifier, x position, y position, title, description]
 	$scope.schema = [];
 
 	// schema_uuid should always yield a unique identifier, can never be decreased
-	$scope.schema_uuid = 0; 
+	$scope.schema_uuid = 0;
 
-	// todo: find out how to go back and forth between css and angular
 	$scope.library_topleft = {
-			x: 15,
-			y: 145,
-			item_height: 50,
-			margin: 5,
+		x: 15,
+		y: 145,
+		item_height: 50,
+		margin: 5
 	};
 
 	$scope.module_css = {
-			width: 150,
-			height: 100, // actually variable
+		width: 150,
+		height: 100 // actually variable
 	};
 
 	$scope.redraw = function() {
@@ -43,12 +42,12 @@ myApp.controller('PlumbCtrl', function($scope) {
 		jsPlumb.detachEveryConnection();
 		$scope.schema = [];
 		$scope.library = [];
-		$scope.addModuleToLibrary("Sum", "Aggregates an incoming sequences of values and returns the sum", 
-				$scope.library_topleft.x+$scope.library_topleft.margin, 
-				$scope.library_topleft.y+$scope.library_topleft.margin);
-		$scope.addModuleToLibrary("Camera", "Hooks up to hardware camera and sends out an image at 20 Hz", 
-				$scope.library_topleft.x+$scope.library_topleft.margin, 
-				$scope.library_topleft.y+$scope.library_topleft.margin+$scope.library_topleft.item_height);	
+		$scope.addModuleToLibrary("Блок 1", "Описание блока",
+				$scope.library_topleft.x + $scope.library_topleft.margin,
+				$scope.library_topleft.y + $scope.library_topleft.margin);
+		$scope.addModuleToLibrary("Блок 2", "Описание блока",
+				$scope.library_topleft.x + $scope.library_topleft.margin,
+				$scope.library_topleft.y + $scope.library_topleft.margin + $scope.library_topleft.item_height);
 	};
 
 	// add a module to the library
@@ -91,12 +90,12 @@ myApp.controller('PlumbCtrl', function($scope) {
 
 myApp.directive('postRender', [ '$timeout', function($timeout) {
 	var def = {
-			restrict : 'A', 
-			terminal : true,
-			transclude : true,
-			link : function(scope, element, attrs) {
-				$timeout(scope.redraw, 0);  //Calling a scoped method
-			}
+		restrict: 'A',
+		terminal: true,
+		transclude: true,
+		link: function(scope, element, attrs) {
+			$timeout(scope.redraw, 0);  //Calling a scoped method
+		}
 	};
 	return def;
 }]);
@@ -110,12 +109,12 @@ myApp.directive('plumbItem', function() {
 	return {
 		replace: true,
 		controller: 'PlumbCtrl',
-		link: function (scope, element, attrs) {
+		link: function(scope, element, attrs) {
 			console.log("Add plumbing for the 'item' element");
 
 			jsPlumb.makeTarget(element, {
 				anchor: 'Continuous',
-				maxConnections: 2,
+				maxConnections: 2
 			});
 			jsPlumb.draggable(element, {
 				containment: 'parent'
@@ -144,7 +143,7 @@ myApp.directive('plumbMenuItem', function() {
 	return {
 		replace: true,
 		controller: 'PlumbCtrl',
-		link: function (scope, element, attrs) {
+		link: function(scope, element, attrs) {
 			console.log("Add plumbing for the 'menu-item' element");
 
 			// jsPlumb uses the containment from the underlying library, in our case that is jQuery.
@@ -158,18 +157,23 @@ myApp.directive('plumbMenuItem', function() {
 myApp.directive('plumbConnect', function() {
 	return {
 		replace: true,
-		link: function (scope, element, attrs) {
+		link: function(scope, element, attrs) {
 			console.log("Add plumbing for the 'connect' element");
 
 			jsPlumb.makeSource(element, {
 				parent: $(element).parent(),
-//				anchor: 'Continuous',
-				paintStyle:{ 
-					strokeStyle:"#225588",
-					fillStyle:"transparent",
-					radius:7,
-					lineWidth:2 
+				maxConnections: 2,
+				isSource: true,
+				connector: [ "Flowchart", { stub: [10, 20], gap: 10, cornerRadius: 5, alwaysRespectStubs: true, lineWidth: 4 } ],
+				anchor: 'Continuous',
+				paintStyle: {
+					strokeStyle: "#7359ad",
+					fillStyle: "transparent",
+					radius: 7,
+					lineWidth: 2
 				},
+				connectorStyle: { strokeStyle: "#7359ad", lineWidth: 3},
+				hoverPaintStyle: { strokeStyle: "#7359ad", fillStyle: "#7359ad"}
 			});
 
 		}
@@ -179,16 +183,16 @@ myApp.directive('plumbConnect', function() {
 myApp.directive('droppable', function($compile) {
 	return {
 		restrict: 'A',
-		link: function(scope, element, attrs){
+		link: function(scope, element, attrs) {
 			console.log("Make this element droppable");
 
 			element.droppable({
-				drop:function(event,ui) {
+				drop: function(event, ui) {
 					// angular uses angular.element to get jQuery element, subsequently data() of jQuery is used to get
 					// the data-identifier attribute
 					var dragIndex = angular.element(ui.draggable).data('identifier'),
-					dragEl = angular.element(ui.draggable),
-					dropEl = angular.element(this);
+						dragEl = angular.element(ui.draggable),
+						dropEl = angular.element(this);
 
 					// if dragged item has class menu-item and dropped div has class drop-container, add module 
 					if (dragEl.hasClass('menu-item') && dropEl.hasClass('drop-container')) {
@@ -209,12 +213,12 @@ myApp.directive('droppable', function($compile) {
 myApp.directive('draggable', function() {
 	return {
 		// A = attribute, E = Element, C = Class and M = HTML Comment
-		restrict:'A',
+		restrict: 'A',
 		//The link function is responsible for registering DOM listeners as well as updating the DOM.
 		link: function(scope, element, attrs) {
 			element.draggable({
 				// let it go back to its original position
-				revert:true,
+				revert: true
 			});
 		}
 	};

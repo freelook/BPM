@@ -4,12 +4,12 @@
 	font-weight: bold;
 	font-size: 120%;
 }
-	
+
 .connect {
 	width: 100%;
 	height: 20px;
 	cursor: pointer;
-	background-color: #40B3DF;
+	background-color: #674e9e;
 }
 
 .summary {
@@ -20,11 +20,11 @@
 }
 
 .menu-item {
-	position: absolute;        
+	position: absolute;
 	border: 1px solid black;
 	width: 150px;
 	font-size: 80%;
-    background-color:#FFFFFF;
+	background-color: #FFFFFF;
 	text-align: center;
 	-moz-box-shadow: 2px 2px 3px 1px #AAA;
 	-webkit-box-shadow: 2px 2px 3px 1px #AAA;
@@ -32,11 +32,11 @@
 }
 
 .item {
-	position: absolute;        
+	position: absolute;
 	border: 1px solid black;
 	width: 150px;
 	font-size: 80%;
-    background-color:#FFFFFF;
+	background-color: #FFFFFF;
 	text-align: center;
 	-moz-box-shadow: 2px 2px 3px 1px #AAA;
 	-webkit-box-shadow: 2px 2px 3px 1px #AAA;
@@ -67,3 +67,23 @@
 	height: 498px;
 }
 
+.demo {
+	margin-left: 30px;
+}
+
+.btn-redraw {
+	margin-top: 10px;
+	color: #fff;
+	background-color: #674e9e;
+	border-color: #674e9e;
+	outline: 0px;
+}
+
+.btn-redraw:hover,
+.btn-redraw:focus,
+.btn-redraw:active,
+.btn-redraw.active {
+	background-color: #674e9e;
+	border-color: #674e9e;
+	outline: 0px;
+}

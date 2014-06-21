@@ -1,55 +1,45 @@
 <html ng-app="plumbApp">
 <head>
-<meta charset="UTF-8">
-<script type="text/javascript" src="../common/js/jquery-1.9.0-min.js"></script>
-<script type="text/javascript" src="../common/js/jquery-ui-1.9.2-min.js"></script>
-<script type="text/javascript" src="../common/js/jquery.jsPlumb-1.4.1-all-min.js"></script>
-<script type="text/javascript" src="js/angular.min.js"></script>
-<script type="text/javascript" src="js/example.js"></script>
+	<meta charset="utf-8">
+	<script src="../common/js/jquery-1.9.0-min.js"></script>
+	<script src="../common/js/jquery-ui-1.9.2-min.js"></script>
+	<script src="../common/js/jquery.jsPlumb-1.4.1-all-min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/example.js"></script>
 
-<link href="../common/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../common/css/common.css">
+	<link rel="stylesheet" href="../common/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../common/css/common.css">
 
-<title>Getting started with jsPlumb</title>
+	<title>Freelook BPM</title>
 </head>
 
 <body ng-controller="PlumbCtrl">
-	<h1>Getting started with jsPlumb</h1>
-	<p>
-		From the blog by <a href="http://blog.emielhollander.nl/2013/01/getting-started-with-jsplumb/">Emiel Hollander</a>. An
-		experiment to see if I can get AngularJS to work together with jsPlumb.
-	</p>
-	<p>This example uses AngularJS as well as jQuery (hard to do without). Click or double-click in the container to
-		find out.</p>
+<div class="demo">
+	<h1>Freelook BPM</h1>
+
+	<p>Тестовый пример дизайнера</p>
 
 	<div id="container" class="drop-container" ng-click="addEvent($event)" droppable>
 		<div id="menu-container">
-			<div plumb-menu-item class="menu-item" ng-repeat="module in library" ng-style="{ 'left':module.x, 'top':module.y }"
-				data-identifier="{{module.library_id}}" draggable>
+			<div plumb-menu-item class="menu-item" ng-repeat="module in library"
+			     ng-style="{ 'left':module.x, 'top':module.y }"
+			     data-identifier="{{module.library_id}}" draggable>
 				<div class="summary">{{module.title}}</div>
 			</div>
 		</div>
-		<img src="../common/img/raspberry_pi.png" alt="Raspberry PI device" width="250" height="150" align="left">
-		<div class="verticalLine"></div>
-		<img src="../common/img/raspberry_pi.png" alt="Raspberry PI device" width="250" height="150" align="left">
-		<div class="verticalLine"></div>
-		<img src="../common/img/android.jpg" alt="Android Nexus device" width="240" height="150" align="left">
 		<div plumb-item class="item" ng-repeat="module in schema" ng-style="{ 'left':module.x, 'top':module.y }"
-			data-identifier="{{module.schema_id}}">
+		     data-identifier="{{module.schema_id}}">
 			<div class="title">{{module.title}}</div>
 			{{module.description}}
 			<div plumb-connect class="connect"></div>
 		</div>
 	</div>
 
-	<p>
+	<button type="button" class="btn btn-redraw" ng-click="redraw()">Очистка</button>
 
-		<button type="button" class="btn btn-primary" ng-click="redraw()">Redraw</button>
-	</p>
 
-	<!--  does not render what comes behind it, so it's probably wrong -->
 	<div post-render></div>
-
+</div>
 </body>
 
 
